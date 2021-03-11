@@ -1,5 +1,6 @@
 package com.example.informationpublishersimulator;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,14 +14,17 @@ class CustomAdapter extends ArrayAdapter<User> {
     Context context; Integer[] thumbnails; ArrayList<User> informs;
     public CustomAdapter(Context context, int layoutToBeInflated, ArrayList<User> informs, Integer[] thumbnails) {
         super(context, R.layout.row_layout, informs);
+        System.out.println("CustomAdapter.CreAte");
         this.context = context;
         this.thumbnails = thumbnails;
         this.informs = informs;
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        System.out.println("CustomAdapter.getView");
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        View row = inflater.inflate(R.layout.row_layout, null);
+        @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.row_layout, null);
         TextView textViewId = (TextView) row.findViewById(R.id.textViewId);
         TextView  textViewName = (TextView) row.findViewById(R.id.textViewName);
         TextView textViewClass = (TextView) row.findViewById(R.id.textViewClass);
