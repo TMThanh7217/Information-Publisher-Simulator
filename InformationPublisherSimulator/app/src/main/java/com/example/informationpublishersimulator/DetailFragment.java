@@ -21,7 +21,8 @@ public class DetailFragment extends Fragment implements FragmentCallbacks {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-// Activities containing this fragment must implement interface: MainCallbacks
+        System.out.println("DetailFragment onCreate");
+        // Activities containing this fragment must implement interface: MainCallbacks
         if (!(getActivity() instanceof MainCallbacks)) {
             throw new IllegalStateException( "Activity must implement MainCallbacks");
         }
@@ -29,13 +30,14 @@ public class DetailFragment extends Fragment implements FragmentCallbacks {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-// inflate res/layout_red.xml which includes a textview and a button
+        // inflate res/layout_red.xml which includes a textview and a button
         LinearLayout view_layout_red = (LinearLayout) inflater.inflate(R.layout.detail_fragment, null);
         txtRed = (TextView) view_layout_red.findViewById(R.id.textViewId);
-// show string argument supplied by constructor (if any!)
+        System.out.println("DetailFragment onCreateView before try catch");
+        // show string argument supplied by constructor (if any!)
         try { Bundle arguments = getArguments(); txtRed.setText(arguments.getString("arg1", "")); }
         catch (Exception e) { Log.e("RED BUNDLE ERROR – ", "" + e.getMessage()); }
-// clicking the button changes the time displayed and sends a copy to MainActivity
+        // clicking the button changes the time displayed and sends a copy to MainActivity
 
         btnRedClock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +49,7 @@ public class DetailFragment extends Fragment implements FragmentCallbacks {
         return view_layout_red;
     }
     @Override
-    public void onMsgFromMainToFragment(String strValue) {
-// receiving a message from MainActivity (it may happen at any point in time)
+    public void onMsgFromMainToFragment(String strValue) {// receiving a message from MainActivity (it may happen at any point in time)
         txtRed.setText("THIS MESSAGE COMES FROM MAIN:" + strValue);
-    }}// DetailFragment
+    }
+}// DetailFragment
