@@ -1,5 +1,5 @@
 package com.example.informationpublishersimulator;
 
 public interface FragmentCallbacks {
-    void onMsgFromMainToFragment(String strValue);
+    public void onMsgFromMainToFragment(String strValue);
 }

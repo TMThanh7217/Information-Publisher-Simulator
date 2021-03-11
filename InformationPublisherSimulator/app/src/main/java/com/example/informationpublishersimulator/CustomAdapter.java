@@ -25,16 +25,11 @@ class CustomAdapter extends ArrayAdapter<User> {
         System.out.println("CustomAdapter.getView");
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.row_layout, null);
-        TextView textViewId = (TextView) row.findViewById(R.id.textViewId);
-        TextView  textViewName = (TextView) row.findViewById(R.id.textViewName);
-        TextView textViewClass = (TextView) row.findViewById(R.id.textViewClass);
-        TextView textViewMark = (TextView) row.findViewById(R.id.textViewMark);
+        TextView textViewId = (TextView) row.findViewById(R.id.userId);
+        ImageView imageViewIcon = (ImageView) row.findViewById(R.id.icon);
 
         ImageView icon = (ImageView) row.findViewById(R.id.icon);
         textViewId.setText(informs.get(position).id);
-        textViewName.setText(informs.get(position).name);
-        textViewClass.setText(informs.get(position).className);
-        textViewMark.setText(informs.get(position).mark.toString());
         icon.setImageResource(thumbnails[position]);
         return (row);
     }

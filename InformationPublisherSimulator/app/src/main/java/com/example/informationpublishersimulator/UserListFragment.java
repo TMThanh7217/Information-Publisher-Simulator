@@ -8,15 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import java.util.ArrayList;
 
-public class UserListFragment extends ListFragment {
+public class UserListFragment extends Fragment {
     // this fragment shows a ListView
     MainActivity main; Context context = null; String message = "";
     // data to fill-up the ListView
     private String items[] = {"Text-on-Line-00", "Text-on-Line-01", "Text-on-Line-10"};
+
+    private String[] ids = {"1oisdo;wqgos", "265+6ds49bd4b", "3321zxz da d a", "4as68486s4v"};
+    private String[] names = {"A1", "B2", "C3", "D4"};
+    private String[] classNames = {"asghv;oisabjiosajobsa", "zkxviohsdohoewopbw", "ajshcjsbbbbvv", "kxckvkcxv"};
+    private Double[] marks = {9.5, 5.5, 6.6, 2.3};
+    private Integer[] thumbnails = {R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
 
     // convenient constructor(accept arguments, copy them to a bundle, binds bundle to fragment)
     public static UserListFragment newInstance(String strArg) {
@@ -29,25 +36,11 @@ public class UserListFragment extends ListFragment {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        System.out.println("UserLiat.crea");
+        System.out.println("UserList.crea");
         super.onCreate(savedInstanceState);
         try {
             context = getActivity(); // use this reference to invoke main callbacks
             main = (MainActivity) getActivity();
-            String[] ids = {"1", "2", "3", "4"};
-            String[] names = {"A1", "B2", "C3", "D4"};
-            String[] classNames = {"asghv;oisabjiosajobsa", "zkxviohsdohoewopbw", "ajshcjsbbbbvv", "kxckvkcxv"};
-            Double[] marks = {9.5, 5.5, 6.6, 2.3};
-            Integer[] thumbnails = {R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
-            ArrayList<User> userList = new ArrayList<>();
-
-            for (int i = 0; i < ids.length; i++) {
-                userList.add(new User(ids[i],names[i], classNames[i], marks[i]));
-            }
-
-            CustomAdapter adapter = new CustomAdapter(context, R.layout.row_layout, userList, thumbnails);
-            // bind intrinsic ListView to custom adapter
-            setListAdapter(adapter);
         }
         catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
@@ -63,8 +56,16 @@ public class UserListFragment extends ListFragment {
         ListView listView = (ListView) layout_blue.findViewById(R.id.listView1List);
         listView.setBackgroundColor(Color.parseColor("#ffccddff"));
         // define a simple adapter to fill rows of the listview
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, items);
+
+        ArrayList<User> userList = new ArrayList<>();
+
+        for (int i = 0; i < ids.length; i++) {
+            userList.add(new User(ids[i],names[i], classNames[i], marks[i]));
+
+        }
+        System.out.println(userList.toString());
+        CustomAdapter adapter = new CustomAdapter(context, R.layout.row_layout, userList, thumbnails);
+        // bind intrinsic ListView to custom adapter
         listView.setAdapter(adapter);
         // show listview from the top
         listView.setSelection(0); listView.smoothScrollToPosition(0);

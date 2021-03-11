@@ -39,13 +39,13 @@ public class DetailFragment extends Fragment implements FragmentCallbacks {
         catch (Exception e) { Log.e("RED BUNDLE ERROR – ", "" + e.getMessage()); }
         // clicking the button changes the time displayed and sends a copy to MainActivity
 
-        btnRedClock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String redMessage = "Red clock:\n" + new Date().toString();
-                txtRed.setText(redMessage);
-                main.onMsgFromFragToMain("RED-FRAG", redMessage);
-            }});
+//        btnRedClock.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String redMessage = "Red clock:\n" + new Date().toString();
+//                txtRed.setText(redMessage);
+//                main.onMsgFromFragToMain("RED-FRAG", redMessage);
+//            }});
         return view_layout_red;
     }
     @Override
