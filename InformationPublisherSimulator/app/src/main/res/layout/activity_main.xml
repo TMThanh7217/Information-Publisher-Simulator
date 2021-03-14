@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="horizontal" >
-<FrameLayout android:id="@+id/main_holder_list"
 
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_weight="1" />
+    <FrameLayout
+        android:id="@+id/main_holder_list"
+
+        android:layout_width="11dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 <FrameLayout android:id="@+id/main_holder_detail"
 
     android:layout_width="0dp"

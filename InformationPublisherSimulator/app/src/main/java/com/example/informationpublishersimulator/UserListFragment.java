@@ -17,13 +17,12 @@ public class UserListFragment extends Fragment {
     // this fragment shows a ListView
     MainActivity main; Context context = null; String message = "";
     // data to fill-up the ListView
-    private String items[] = {"Text-on-Line-00", "Text-on-Line-01", "Text-on-Line-10"};
 
-    private String[] ids = {"1oisdo;wqgos", "265+6ds49bd4b", "3321zxz da d a", "4as68486s4v"};
-    private String[] names = {"A1", "B2", "C3", "D4"};
-    private String[] classNames = {"asghv;oisabjiosajobsa", "zkxviohsdohoewopbw", "ajshcjsbbbbvv", "kxckvkcxv"};
-    private Double[] marks = {9.5, 5.5, 6.6, 2.3};
-    private Integer[] thumbnails = {R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
+    private String[] ids = {"1ECG9", "HB4E1", "YYLIP", "12HQY", "ZGSIP", "5DRI6"};
+    private String[] names = {"Ali", "Beatriz", "Charles", "Diya", "Eric", "Fatima"};
+    private String[] classNames = {"8900A", "03DD6", "049A4", "C8967", "049A4", "03DD6"};
+    private Double[] marks = {1.5, 2.5, 3.5, 3.2, 2.0, 1.7};
+    private Integer[] thumbnails = {R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
 
     // convenient constructor(accept arguments, copy them to a bundle, binds bundle to fragment)
     public static UserListFragment newInstance(String strArg) {
@@ -49,19 +48,18 @@ public class UserListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("UserList.creView");
-        // inflate res/layout_blue.xml to make GUI holding a TextView and a ListView
-        LinearLayout layout_blue = (LinearLayout) inflater.inflate(R.layout.list_fragment, null);
+        // inflate res/layout_list.xml to make GUI holding a TextView and a ListView
+        LinearLayout layout_list = (LinearLayout) inflater.inflate(R.layout.list_fragment, null);
         // plumbing – get a reference to textview and listview
-        final TextView txtBlue = (TextView) layout_blue.findViewById(R.id.textView1List);
-        ListView listView = (ListView) layout_blue.findViewById(R.id.listView1List);
-        listView.setBackgroundColor(Color.parseColor("#ffccddff"));
+        final TextView txtId = (TextView) layout_list.findViewById(R.id.textViewId);
+        ListView listView = (ListView) layout_list.findViewById(R.id.listView1List);
+
         // define a simple adapter to fill rows of the listview
 
         ArrayList<User> userList = new ArrayList<>();
 
         for (int i = 0; i < ids.length; i++) {
             userList.add(new User(ids[i],names[i], classNames[i], marks[i]));
-
         }
         System.out.println(userList.toString());
         CustomAdapter adapter = new CustomAdapter(context, R.layout.row_layout, userList, thumbnails);
@@ -74,10 +72,10 @@ public class UserListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // inform enclosing MainActivity of the row’s position just selected
-                main.onMsgFromFragToMain("BLUE-FRAG", "Blue selected row=" + position);
-                txtBlue.setText("Blue selected row=" + position);
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(position));
+                txtId.setText(userList.get(position).id);
             }});
         // do this for each row (ViewHolder-Pattern could be used for better performance!)
-        return layout_blue;
+        return layout_list;
     }// onCreateView
 }// class

@@ -7,7 +7,7 @@
 <TextView android:id="@+id/textViewId"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Id here"
+    android:text="NF"
     android:textSize="40dp"
     android:textAlignment="center"
     android:padding="5dp"/>
@@ -24,7 +24,7 @@
         <TextView android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name here"
+            android:text="NF"
             android:textSize="25dp"/>
     </LinearLayout>
 
@@ -40,7 +40,7 @@
         <TextView android:id="@+id/textViewClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Class here"
+            android:text="NF"
             android:textSize="25dp"/>
     </LinearLayout>
 
@@ -56,7 +56,7 @@
         <TextView android:id="@+id/textViewMark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mark here"
+            android:text="NF"
             android:textSize="25dp"/>
     </LinearLayout>
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Previous"
+            android:text="Prev"
             android:layout_weight=".25"
             android:gravity="center"/>
         <Button android:id="@+id/btnNext"
