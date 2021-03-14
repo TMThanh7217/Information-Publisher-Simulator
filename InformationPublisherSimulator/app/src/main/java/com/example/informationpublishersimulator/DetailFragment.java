@@ -11,7 +11,8 @@ import java.util.Date;
 
 
 public class DetailFragment extends Fragment implements FragmentCallbacks {
-    MainActivity main; TextView txtId; Button btnRedClock; TextView txtName; TextView txtMark; TextView txtClassName;
+    MainActivity main; TextView txtId; TextView txtName; TextView txtMark; TextView txtClassName;
+    Button btnFirst; Button btnPrevious; Button btnNext; Button btnLast;
     public static DetailFragment newInstance(String strArg1) {
         DetailFragment fragment = new DetailFragment();
         Bundle bundle = new Bundle(); bundle.putString("arg1", strArg1);
@@ -31,19 +32,50 @@ public class DetailFragment extends Fragment implements FragmentCallbacks {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // inflate res/layout_red.xml which includes a textview and a button
-        LinearLayout view_layout_red = (LinearLayout) inflater.inflate(R.layout.detail_fragment, null);
-        txtId = (TextView) view_layout_red.findViewById(R.id.textViewId);
-        txtName = view_layout_red.findViewById(R.id.textViewName);
-        txtClassName = view_layout_red.findViewById(R.id.textViewClass);
-        txtMark = view_layout_red.findViewById(R.id.textViewMark);
+        LinearLayout view_layout_detail = (LinearLayout) inflater.inflate(R.layout.detail_fragment, null);
+        txtId = (TextView) view_layout_detail.findViewById(R.id.textViewId);
+        txtName = view_layout_detail.findViewById(R.id.textViewName);
+        txtClassName = view_layout_detail.findViewById(R.id.textViewClass);
+        txtMark = view_layout_detail.findViewById(R.id.textViewMark);
 
         System.out.println("DetailFragment onCreateView before try catch");
-        // show string argument supplied by constructor (if any!)
+        btnFirst = view_layout_detail.findViewById(R.id.btnFirst);
+        btnPrevious = view_layout_detail.findViewById(R.id.btnPrevious);
+        btnNext = view_layout_detail.findViewById(R.id.btnNext);
+        btnLast = view_layout_detail.findViewById(R.id.btnLast);
 
-        return view_layout_red;
+        btnFirst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.onMsgFromFragToMain("RED-FRAG", null, 0);
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.onMsgFromFragToMain("RED-FRAG", null, 1);
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.onMsgFromFragToMain("RED-FRAG", null, 2);
+            }
+        });
+
+        btnLast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.onMsgFromFragToMain("RED-FRAG", null, 3);
+            }
+        });
+
+        return view_layout_detail;
     }
     @Override
-    public void onMsgFromMainToFragment(User user) {// receiving a message from MainActivity (it may happen at any point in time)
+    public void onMsgFromMainToFragment(User user, Integer btn) {// receiving a message from MainActivity (it may happen at any point in time)
         txtId.setText(user.id);
         txtMark.setText(user.mark.toString());
         txtName.setText(user.name);

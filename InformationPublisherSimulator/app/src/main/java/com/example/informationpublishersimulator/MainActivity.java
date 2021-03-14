@@ -22,12 +22,17 @@ public class MainActivity extends FragmentActivity implements MainCallbacks{
     }
     // MainCallback implementation (receiving messages coming from Fragments)
     @Override
-    public void onMsgFromFragToMain(String sender,  User user) {
+    public void onMsgFromFragToMain(String sender,  User user, Integer btn) {
 // show message arriving to MainActivity
-        if (sender.equals("RED-FRAG")) { /* TODO: if needed, do here something on behalf of the RED fragment*/ }
+        if (sender.equals("RED-FRAG")) {
+            try { // forward blue-data to detailFragment using its callback method
+                userListFragment.onMsgFromMainToFragment(user, btn);
+            }
+            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
+        }
         if (sender.equals("BLUE-FRAG")) {
             try { // forward blue-data to detailFragment using its callback method
-                detailFragment.onMsgFromMainToFragment(user);
+                detailFragment.onMsgFromMainToFragment(user, btn);
             }
             catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }

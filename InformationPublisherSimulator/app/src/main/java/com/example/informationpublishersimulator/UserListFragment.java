@@ -11,9 +11,11 @@ import android.widget.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class UserListFragment extends Fragment {
+public class UserListFragment extends Fragment implements FragmentCallbacks {
     // this fragment shows a ListView
     MainActivity main; Context context = null; String message = "";
     // data to fill-up the ListView
@@ -23,6 +25,9 @@ public class UserListFragment extends Fragment {
     private String[] classNames = {"8900A", "03DD6", "049A4", "C8967", "049A4", "03DD6"};
     private Double[] marks = {1.5, 2.5, 3.5, 3.2, 2.0, 1.7};
     private Integer[] thumbnails = {R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
+    private int cur_pos = 0;
+    private ArrayList<User> userList = new ArrayList<>();
+    private TextView txtId;
 
     // convenient constructor(accept arguments, copy them to a bundle, binds bundle to fragment)
     public static UserListFragment newInstance(String strArg) {
@@ -33,6 +38,7 @@ public class UserListFragment extends Fragment {
 
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         System.out.println("UserList.crea");
@@ -51,12 +57,11 @@ public class UserListFragment extends Fragment {
         // inflate res/layout_list.xml to make GUI holding a TextView and a ListView
         LinearLayout layout_list = (LinearLayout) inflater.inflate(R.layout.list_fragment, null);
         // plumbing – get a reference to textview and listview
-        final TextView txtId = (TextView) layout_list.findViewById(R.id.textViewId);
+        txtId = (TextView) layout_list.findViewById(R.id.textViewId);
         ListView listView = (ListView) layout_list.findViewById(R.id.listView1List);
-
         // define a simple adapter to fill rows of the listview
 
-        ArrayList<User> userList = new ArrayList<>();
+
 
         for (int i = 0; i < ids.length; i++) {
             userList.add(new User(ids[i],names[i], classNames[i], marks[i]));
@@ -72,10 +77,42 @@ public class UserListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // inform enclosing MainActivity of the row’s position just selected
-                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(position));
+                cur_pos = position;
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(cur_pos), null);
                 txtId.setText(userList.get(position).id);
             }});
         // do this for each row (ViewHolder-Pattern could be used for better performance!)
         return layout_list;
     }// onCreateView
+
+    @Override
+    public void onMsgFromMainToFragment(User user, Integer btn) {
+        switch (btn) {
+            case 0:
+                cur_pos = 0;
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(cur_pos), null);
+                txtId.setText(userList.get(cur_pos).id);
+                break;
+            case 1:
+                if (cur_pos == 0)
+                    cur_pos = userList.size() - 1;
+                else cur_pos -= 1;
+
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(cur_pos), null);
+                txtId.setText(userList.get(cur_pos).id);
+                break;
+            case 2:
+                cur_pos += 1;
+                cur_pos %= userList.size();
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(cur_pos), null);
+                txtId.setText(userList.get(cur_pos).id);
+                break;
+            case 3:
+                cur_pos = userList.size() - 1;
+                main.onMsgFromFragToMain("BLUE-FRAG", userList.get(cur_pos), null);
+                txtId.setText(userList.get(cur_pos).id);
+                break;
+            default: break;
+        }
+    }
 }// class
